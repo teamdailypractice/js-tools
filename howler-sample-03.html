@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Howler Sample</title>
+
+</head>
+
+<body>
+    <input type="button" value="Play" id="btnAudioController">
+    
+    <script src="./library/howler.min.js"></script>
+    <script>
+        var currentPlayer;
+        function getAudioPlayer(filenames) {
+            player = new Howl({
+                src: [filenames[0]],
+                autoplay: true,
+                onend: function () {
+                    filenames.shift();
+                    if (filenames.length > 0) {
+                        getAudioPlayer(filenames);
+                    }
+                }
+            });
+            currentPlayer = player;
+        }
+        function audioController(audioPlayer, isPlay) {
+            if (isPlay) {
+                audioPlayer.play();
+            } else {
+                audioPlayer.pause()
+            }
+
+        }
+        document.getElementById('btnAudioController').addEventListener("click", function(e) {
+            let audioFiles = ['./media/1.mp3', './media/2.mp3', './media/1.mp3', './media/2.mp3']
+            getAudioPlayer(audioFiles);
+            const currentAction = document.getElementById('btnAudioController').value;
+            // console.log(btnAudioController);
+            if(currentAction === 'Play') {
+                document.getElementById('btnAudioController').value = 'Pause'
+                audioController(this.currentPlayer, true);
+            } else {
+                audioController(this.currentPlayer, false);
+                document.getElementById('btnAudioController').value = 'Play'
+            }
+            // audioController(audioPlayer, isPlay);
+        }.bind(currentPlayer));
+    </script>
+</body>
+
+</html>

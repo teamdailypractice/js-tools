@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Howler Sample</title>
+
+</head>
+
+<body>
+    <input type="button" value="Play" id="btnPlay">
+    <input type="button" value="pause" id="btnPause">
+    <script src="./library/howler.min.js"></script>
+    <script>
+        let currentlyPlayingAudioId = 'a1';
+
+         function onplay(id) {
+                console.log('playing: ' + id + this);
+                console.log(this);
+                currentlyPlayingAudioId = this.toString();
+                console.log(currentlyPlayingAudioId)
+            };
+        let sound1 = new Howl({
+            src: ['./media/1.mp3'],
+            onplay: onplay.bind('a1'),
+            onend: () => {
+                console.log('sound1 completed');
+                sound2.play();
+            }
+        });
+        let sound2 = new Howl({
+            src: ['./media/2.mp3'],
+            onplay: onplay.bind('a2'),
+        });
+        let audioList = {'a1': sound1, 'a2': sound2}
+        document.getElementById('btnPlay').addEventListener("click", (e) => {
+            
+
+            // if(currentlyPlayingAudioId !== -1) {
+
+            // }
+           
+
+
+
+            let isPlaying = document.getElementById('btnPlay').value === 'Play' ? true : false;
+            console.log(isPlaying);
+            if (isPlaying) {
+                document.getElementById('btnPlay').value = 'Pause';
+                console.log(audioList)
+                console.log(currentlyPlayingAudioId)
+                audioList[currentlyPlayingAudioId].play();
+
+            }
+            else {
+                document.getElementById('btnPlay').value = 'Play';
+                audioList[currentlyPlayingAudioId].pause();
+            }
+
+
+        });
+    </script>
+</body>
+
+</html>

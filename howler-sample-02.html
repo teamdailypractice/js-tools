@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Howler Sample</title>
+
+</head>
+
+<body>
+    <input type="button" value="Play" id="btnPlay">
+    <input type="button" value="pause" id="btnPause">
+    <script src="./library/howler.min.js"></script>
+    <script>
+        function audioPlayer(filenames, isPlay) {
+            sound = new Howl({
+                src: [filenames[0]],
+                volume: 0.5,
+                onend: function () {
+                    filenames.shift();
+                    if (filenames.length > 0) {
+                        audioPlayer(filenames, isPlay);
+                    }
+                }
+            });
+
+            if(isPlay) {
+                sound.play();
+            } else {
+                sound.pause()
+            }
+
+            
+        }
+        document.getElementById('btnPlay').addEventListener("click", (e) => {
+            let audioFiles = ['./media/1.mp3', './media/2.mp3', './media/1.mp3','./media/2.mp3']
+            play_audio(audioFiles);
+        });
+    </script>
+</body>
+
+</html>
