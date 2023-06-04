@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <div>
+        <label for="grocery-item">Choose a flavor:</label>
+        <input list="grocery-item-list" id="item" name="item">
+
+        <datalist id="grocery-item-list">
+            <option value="1001">pacha arisi பச்சரிசி</option>
+            <option value="1002">pulungal arisi புழுங்கல் அரிசி</option>
+            <option value="1003">Paasi Paruppu பாசி பருப்பு Toor Dhall</option>
+            <option value="2001">Gingelly Oil</option>
+            <option value="2002">Peanut Oil</option>
+            <option value="2003">Coconut Oil</option>
+            <option value="2004">Castor Oil</option>
+        </datalist>
+        <input type="submit" id="buttonAdd" name="buttonAdd" value="Add">
+    </div>
+    <script lang="text/javascript">
+
+        window.addEventListener("load", onLoad);
+
+        function onLoad() {
+            const buttonAdd = document.getElementById("buttonAdd");
+            buttonAdd.addEventListener("click", onAdd);
+        }
+
+        function onAdd() {
+            const newlyAddedItem = document.getElementById("item");
+            alert(newlyAddedItem.value);
+            console.log(newlyAddedItem);
+            return false;
+        }
+    </script>
+</body>
+
+</html>
