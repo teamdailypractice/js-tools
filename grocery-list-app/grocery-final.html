@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <div id="divFinalItems">
+
+    </div>
+    <script src="scripts/index.js"></script>
+    <script lang="text/javascript">
+        window.addEventListener("load", onLoad);
+        function onLoad() {
+            let divFinalItems = document.getElementById("divFinalItems");
+            addedItems = JSON.parse(localStorage.getItem("FINAL_ITEMS"));
+            console.log(addedItems);
+            for (let i = 0; i < addedItems.length; i++) {
+                divFinalItems.innerHTML +=  (i+ 1) + " " + addedItems[i]["tamil"] + "<br />"
+            }
+        };
+    </script>
+</body>
+
+</html>

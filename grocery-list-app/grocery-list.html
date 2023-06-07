@@ -17,28 +17,52 @@
         <datalist id="grocery-item-list">
             <option value="1001">pacha arisi பச்சரிசி</option>
             <option value="1002">pulungal arisi புழுங்கல் அரிசி</option>
-            <option value="1003">Paasi Paruppu பாசி பருப்பு Toor Dhall</option>
-            <option value="2001">Gingelly Oil</option>
-            <option value="2002">Peanut Oil</option>
-            <option value="2003">Coconut Oil</option>
-            <option value="2004">Castor Oil</option>
         </datalist>
         <input type="submit" id="buttonAdd" name="buttonAdd" value="Add">
+        <br />
+        <a href="grocery-final.html">Final Items</a>
+        <br />
+        <input type="submit" id="buttonClear" name="buttonClear" value="Clear All Items">
     </div>
+    <script src="scripts/index.js"></script>
     <script lang="text/javascript">
-
         window.addEventListener("load", onLoad);
-
+        var addedItems = [];
         function onLoad() {
+            //read data from json
+            items.forEach(item => {
+                console.log(item["id"]);
+                console.log(item["tamil"]);
+            });
+
+            //populate the datalist
+
             const buttonAdd = document.getElementById("buttonAdd");
             buttonAdd.addEventListener("click", onAdd);
+
+            const buttonClear = document.getElementById("buttonClear");
+            buttonClear.addEventListener("click", onClear);
         }
 
         function onAdd() {
             const newlyAddedItem = document.getElementById("item");
             alert(newlyAddedItem.value);
-            console.log(newlyAddedItem);
+            const itemId = Number.parseInt(newlyAddedItem.value, 10);
+
+            const item = items.find(item => item.id === itemId);
+
+            const existingItems = JSON.parse(localStorage.getItem("FINAL_ITEMS"));
+            if (existingItems !== null && existingItems.length > 0) {
+                addedItems = addedItems.concat(existingItems);
+            }
+            addedItems.push(item);
+            console.log(addedItems);
+            localStorage.setItem("FINAL_ITEMS", JSON.stringify(addedItems));
             return false;
+        }
+
+        function onClear(){
+            localStorage.removeItem("FINAL_ITEMS");
         }
     </script>
 </body>
